@@ -1,0 +1,6 @@
+{
+  "schema": "./parameter.json",
+  "direction": "INPUT",
+  "type": "JPG",
+  "max_size": 1048576
+}

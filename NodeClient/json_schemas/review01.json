@@ -1,0 +1,9 @@
+{
+    "schema": "./review_schema.json",
+    "filmId" : 1,
+    "reviewerId":3,
+    "completed":true,
+    "reviewDate": "2022-02-22",
+    "rating":7,
+    "review": "Interessante"
+}

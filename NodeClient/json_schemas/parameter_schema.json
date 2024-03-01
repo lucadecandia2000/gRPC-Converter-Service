@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://www.my-schema.com/parameter_schema.json",
+    "title": "Parameter",
+    "description": "JSON Schema for Parameter data structures",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "direction": {
+        "type": "string",
+        "enum": ["INPUT", "OUTPUT"],
+        "description": "Direction of the parameter (INPUT or OUTPUT)"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["JPG", "PNG", "GIF"],
+        "description": "Type of the parameter (JPG, PNG, or GIF)"
+      },
+      "max_size": {
+        "type": "integer",
+        "description": "Maximum size of the parameter in bytes"
+      }
+    },
+    "required": ["direction", "type", "max_size"]
+  }
+  

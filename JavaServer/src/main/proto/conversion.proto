@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "conversion";
+option java_outer_classname = "ConversionProto";
+
+package conversion;
+
+// The conversion service definition.
+service Converter {
+  rpc fileConvert (stream ConversionRequest) returns (stream ConversionReply) {}
+  rpc registration (RegistrationRequest) returns (RegistrationResponse) ; 
+}
+
+
+enum Direction { 
+	INPUT = 0 ; 
+	OUTPUT = 1 ;
+}
+enum Type { 
+	PNG = 0 ; 
+	JPG = 1 ; 
+	GIF = 2 ; 
+}
+
+enum ExitStatus {
+	OK = 0 ; 
+	ID_ALREADY_EXISTING = 1 ; 
+	NOT_REGISTERED_ID = 2 ; 
+	INVALID_INPUT_SIZE = 3 ; 
+	INVALID_OUTPUT_SIZE = 4 ; 
+	INPUT_TYPE_NOT_SUPPORTED = 5 ; 
+	OUTPUT_TYPE_NOT_SUPPORTD = 6 ; 
+	CONVERSION_FAILURE = 7; 
+	NEGOTIATION_FAILURE = 8 ; 
+	GENERIC_FAILURE = 9 ; 
+}
+message Parameter {
+
+	Direction dir = 1 ; 
+	Type type = 2 ;
+	int32 max_size = 3 ; 
+}
+
+message RegistrationRequest{
+	string id = 1 ; 
+	repeated Parameter params = 2 ; 
+}
+
+message RegistrationResponse{
+	ExitStatus code = 1 ;
+	repeated Parameter params = 2 ; 
+}
+
+// The conversion request message
+message ConversionRequest{
+		oneof request_oneof { 
+              MetadataRequest meta =1;
+              bytes file = 2;
+        }
+
+}
+message MetadataRequest{
+     string file_type_origin = 1;
+     string file_type_target = 2;
+     string id = 3 ;
+}
+
+//The conversion reply message
+
+message ConversionReply{
+        oneof request_oneof {
+              MetadataReply meta = 1;
+              bytes file = 2;
+        }
+}
+message MetadataReply{
+	ExitStatus code = 1 ; 
+}
